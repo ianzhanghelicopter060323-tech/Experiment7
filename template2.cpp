@@ -1,61 +1,36 @@
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 
 template <class T>
-class Order
-{
-    private:
-        int len;
-        T *arr;
-    public:
-        Order(const T *arr_in, int len_in);
-        ~Order();
 
-        void AscenOrder();
-        void Print() const;
-};
-
-
-/* ============= sorting class defination ============== */
-template <class T>
-Order<T>::Order(const T *arr_in, int len_in)
-{
-    len = len_in;
-    arr = new T [len];
-
-    for (int i=0; i<len; i++)
-    {
-        arr[i] = arr_in[i];
-    }
-}
-
-template <class T>
-Order<T>::~Order()
-{
-    delete [] arr;
-    arr = nullptr;
-}
-
-
-template <class T>
-void Order<T>::AscenOrder()
-{
-    sort(arr, arr + len);
-}
-
-
-template <class T>
-void Order<T>::Print() const
+// Ascending Order Sorting with bubble sorting
+void AscendOrder(T arr[], int len)
 {
     for (int i=0; i<len-1; i++)
     {
-        cout << arr[i] << ", " ;
+        for (int j=0; j<len-i-1; j++)
+        {
+            if (arr[j] > arr[j+1])
+            {
+                T temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
     }
-    cout << arr[len-1] << endl;
 }
-/* ====================================================== */
+
+
+template <class T>
+void Print(const T *arr_in, int len_in)
+{
+    for (int i=0; i<len_in-1; i++)
+    {
+        cout << arr_in[i] << ", ";
+    } 
+    cout << arr_in[len_in-1] << endl;
+}
 
 
 int main()
@@ -64,16 +39,11 @@ int main()
     int arr_int[] = {11, 45, 14, 1, 9, 19, 8, 10};
     double arr_double[] = {1.1, 1.14, 5.14, 19.19};
 
-    Order<int> od_int(arr_int, 8);
-    Order<double> od_double(arr_double, 4);
+    AscendOrder(arr_int, 8);
+    AscendOrder(arr_double, 4);
 
-    // ascending order sorting
-    od_int.AscenOrder();
-    od_double.AscenOrder();
-
-    // print
-    od_int.Print();
-    od_double.Print();
+    Print(arr_int, 8);
+    Print(arr_double, 4);
 
     return 0;
 }
